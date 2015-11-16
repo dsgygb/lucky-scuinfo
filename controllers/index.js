@@ -25,7 +25,7 @@ var common = require('../common.js');
 
 
 index.index = function (req,res){
-    res.sendFile('index.html',{root:path.normalize('../lucky')},function(e,r) {
+    res.sendFile('index.html',{root:path.normalize('../lucky-scuinfo')},function(e,r) {
     });
     };
 //index.auth = function (req,res){
