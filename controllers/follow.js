@@ -106,7 +106,6 @@ follow.following = function  (req,res){
                                     }
                                 }, function (eeee, rrrr) {
 
-
                                     if (eeee) {
                                         console.log(eeee);
 
@@ -117,7 +116,11 @@ follow.following = function  (req,res){
 
 
 
-                                        res.status(200).json(rrr);
+                                        res.status(200).json({ user_id: result.user_id,
+                                            lucky_id: result.lucky_id,
+                                            create_at: result.create_at,
+                                            status: result.status
+                                        });
                                     }
 
                                 });
