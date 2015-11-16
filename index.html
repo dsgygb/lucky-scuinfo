@@ -211,7 +211,7 @@
 
             var profileHeaderHtml = '<article class="group-item-header" id="group-item-header"><div class="group-avatar">'+
                     '<img src="'+data.avatar+'"> </div>'+
-                    '<div class="group-header-info"><div class="group-nickname">'+data.nickname+'</div> <div class="group-status">共'+data.group.length+'个组合</div> </div>'+
+                    '<div class="group-header-info"><div class="group-nickname">'+data.nickname+'</div> <div class="group-status">共'+'<span id="profile-group-counts">'+data.group.length+'</span>'+'个组合</div> </div>'+
                     ((profileUserId==user.user_id)?'':(flag?'<div class="group-btn"><a href="javascript:;" class="weui_btn weui_btn_plain_default join-btn">已成为队友</a></div>':'<div class="group-btn"><a href="javascript:;" class="weui_btn weui_btn_plain_primary join-btn" id="following-btn">加入Ta的组合</a></div>'))+
                     '</article>';
 
@@ -254,6 +254,11 @@
                                     $("#group-item-header").after(newItem);
 
                                     $("#group-counts").text(parseInt($("#group-counts").text())+1+"个组合");
+
+
+
+                                    $("#profile-group-counts").text(parseInt($("#profile-group-counts").text())+1);
+
                                     $.ajax({
                                         url:"/api/stat/1/inc",
                                         type:"put",
