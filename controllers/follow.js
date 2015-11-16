@@ -79,7 +79,7 @@ follow.following = function  (req,res){
                                     status: result.status
                                 }
                             }
-                        }, {safe: true, upsert: true, new: true}, function (eee, rrr) {
+                        }, function (eee, rrr) {
                             //console.log(e,r);
 
 
@@ -104,7 +104,7 @@ follow.following = function  (req,res){
                                             status: "未开奖"
                                         }
                                     }
-                                }, {safe: true, upsert: true, new: true}, function (eeee, rrrr) {
+                                }, function (eeee, rrrr) {
 
 
                                     if (eeee) {

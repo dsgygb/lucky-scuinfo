@@ -14,7 +14,15 @@
         }
         var data = sessionStorage.getItem('access_token');
         if(!data){
-            location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(JSON.stringify({r:window.location.href}))+'#wechat_redirect';
+
+//            location.href = '/auth?code='+(getQueryString('code')?getQueryString('code'):"debug")+"&stat="+encodeURIComponent(JSON.stringify({r:window.location.href}));
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(JSON.stringify({r:window.location.href}))+'#wechat_redirect';
+        }else{
+            if(!getQueryString('u')){
+                location.href = '/?u='+sessionStorage.getItem('user_id');
+
+            }
+            
         }
     </script>
 </head>
@@ -72,7 +80,11 @@
 <div id="container">
 
 </div>
+
 <div id="tips">
+    <div id="wechatShareTips">
+        <img src="/pic/wechat_share.png">
+    </div>
     <div id="loadingToast" class="weui_loading_toast" style="display:none;">
         <div class="weui_mask_transparent"></div>
         <div class="weui_toast">
@@ -146,7 +158,9 @@
         var group_counts = sessionStorage.getItem('group_counts');
 
         $("#my-profile-url").attr('href',"/?u="+user.user_id);
-        $("#my-group-counts").text(group_counts);
+
+
+
         $("#my-avatar img").attr("src",user.avatar);
         $("#my-nickname").text(user.nickname);
 
@@ -167,6 +181,7 @@
         });
 
         $.getJSON("/api/profile/"+profileUserId,function(data){
+            $("#my-group-counts").text(data.group.length);
 
             var listHtml='';
             var flag = false;
@@ -249,6 +264,25 @@
                 }
             });
             $("#container").append(listHtml);
+
+
+            var shareDiv = '<div id="share-btn"> <a class="weui_btn weui_btn_plain_primary" id="share-a-href">邀请好友组队</a></div>';
+
+            $("#container").append(shareDiv);
+
+
+            $("#container").on('click',function(e){
+                console.log(e.target.id);
+                if(e.target.id == "share-a-href"){
+                    $("#wechatShareTips").css('display',"block");
+
+                }
+            });
+
+            $("#wechatShareTips").on('click',function(){
+                $("#wechatShareTips").css('display',"none");
+            })
+
         });
 
         $.ajax({

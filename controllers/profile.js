@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 var mongoose = require('mongoose')
     , Profile = mongoose.model('Profile');
@@ -13,7 +13,7 @@ profile.profile = function  (){
 profile.api = function(req,res){
 
     Profile.findById(req.params.user_id,function(e,r){
-
+        //console.log(e,r);
         if(e){
             res.status(500).json({message:"服务器内部错误"});
         }else{
