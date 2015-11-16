@@ -56,7 +56,7 @@ Profile.findOne(
                          var stat = {r:"/"}
                      }
                      result.r = stat.r;
-                     console.log(result);
+                     //console.log(result);
 
                      let info = encodeURIComponent(new Buffer(encodeURIComponent(JSON.stringify(result))).toString('base64'));
                     res.redirect('/storage?i='+info);
