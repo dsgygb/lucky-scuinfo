@@ -17,12 +17,12 @@
         if(!data || !up_at){
 //            console.log('https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/luckyWeb")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(window.location.href)+'#wechat_redirect');
 //            location.href = '/auth?code='+(getQueryString('code')?getQueryString('code'):"debug")+"&stat="+encodeURIComponent(JSON.stringify({r:window.location.href}));
-            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
+//            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
 //location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/luckyWeb")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
 
         }else{
             if(up_at<(parseInt(new Date().getTime()/1000)-300)){
-                location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
+//                location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
             }else{
                 if(!getQueryString('u')){
                     location.href = '/?u='+localStorage.getItem('user_id');
@@ -52,9 +52,9 @@
     </div>
             <section>
 
-                <div class="activity-intro">
+                <div class="activity-intro" id="activity-article">
                     <p><strong>抽200个人（100个组合）,请你吃川大小北门外的「降龙爪爪」</strong></p>
-                    <p>建议你和你的吃货朋友组队抽奖，每个队伍都有一个唯一的抽奖码，可以无限组队，这意味着你的组合越多，中奖概率就越大。一旦中奖，二人同享。17日22点系统随机抽100个抽奖码。请分享你的主页给好友来组队.</p>
+                    <p>建议你和你的吃货朋友组队抽奖，每个队伍都有一个唯一的抽奖码，可以无限组队，这意味着你的组合越多，中奖概率就越大。一旦中奖，二人同享。17日22点系统随机抽100个抽奖码。请分享你的抽奖主页给好友来组队.</p>
                     <p>另店主交待:鉴于大家会竖着进,横着出,建议大家饿两顿。</p>
                     <a href="http://mp.weixin.qq.com/s?__biz=MjM5OTM3OTM3Mg==&mid=404891049&idx=1&sn=1c252c3fabfa412e21361f46076a378e#rd" class="weui_btn weui_btn_plain_default activity-btn">点击看看都有哪些好吃的?</a>
 
@@ -123,6 +123,26 @@
 <script src="/js/zepto.min.js"></script>
 <script>
     (function($){
+        var userJSON = localStorage.getItem('user');
+
+        try{
+            var user = JSON.parse(userJSON);
+        }catch(e){
+            var user={
+
+            };
+        }
+        var profileUserId = getQueryString('u')?getQueryString('u'):user.user_id;
+
+        if(profileUserId!=user.user_id){
+            var myDiv = '<div id="myDiv-btn"> <a href="/?u='+user.user_id+'" class="weui_btn weui_btn_plain_primary" >点击进入我的主页</a></div>';
+            $("#activity-article").append(myDiv);
+
+        }else{
+            var shareDiv = '<div id="share-btn"> <a class="weui_btn weui_btn_plain_primary" id="share-a-href">点击邀请好友组队抽奖加大概率</a></div>';
+            $("#activity-article").append(shareDiv);
+        }
+
 var headerHeight = $("#header").height();
 $("#container").css('top',headerHeight-1);
         var expireTime = function(expires){
@@ -150,15 +170,6 @@ $("#container").css('top',headerHeight-1);
         };
 
 
-        var userJSON = localStorage.getItem('user');
-
-        try{
-            var user = JSON.parse(userJSON);
-        }catch(e){
-            var user={
-
-            };
-        }
 
         var group_counts = localStorage.getItem('group_counts');
 
@@ -170,7 +181,6 @@ $("#container").css('top',headerHeight-1);
         $("#my-avatar img").attr("src",user.avatar);
         $("#my-nickname").text(user.nickname);
 
-        var profileUserId = getQueryString('u')?getQueryString('u'):user.user_id;
 
 
         $.getJSON("/api/stat/1",function(data){
@@ -280,14 +290,7 @@ $("#container").css('top',headerHeight-1);
 
 
 
-           if(profileUserId!=user.user_id){
-               var myDiv = '<div id="myDiv-btn"> <a href="/?u='+user.user_id+'" class="weui_btn weui_btn_plain_primary" >点击进入我的主页</a></div>';
-               $("#container").append(myDiv);
 
-           }else{
-               var shareDiv = '<div id="share-btn"> <a class="weui_btn weui_btn_plain_primary" id="share-a-href">点击邀请好友组队抽奖加大概率</a></div>';
-               $("#container").append(shareDiv);
-           }
 
 
 
