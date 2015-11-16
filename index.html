@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    <link rel="stylesheet" href="/css/weui.min.css">
+    <link rel="stylesheet/less" href="/css/profile.less">
+    <title>test</title>
+</head>
+<body>
+<header id="header">
+
+    <div class="weui_cells weui_cells_access" id="my-profile-href">
+
+        <a class="weui_cell header-my" href="/">
+            <div class="weui_cell_hd header-avatar" id="my-avatar">
+                <img src="http://tp2.sinaimg.cn/3656973697/180/40036683459/0" alt="icon" style="width:20px;margin-right:5px;display:block">
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <p id="my-nickname">-</p>
+            </div>
+            <div class="weui_cell_ft">
+                进入我的主页(<span id="my-group-counts">-</span>个组合)
+            </div>
+        </a>
+    </div>
+
+
+
+
+            <section>
+
+                <div class="activity-intro">
+                    <p>介绍</p>
+                    <a href="/" class="weui_btn weui_btn_plain_primary activity-btn">点我查看都有哪些好吃的?</a>
+
+                </div>
+
+                <div class="activity-section">
+                <div class="activity-section-icon"><i class="weui_icon_waiting_circle header-cell-hd"></i></div>
+                <div class="activity-section-key">距离开奖还有:</div>
+                <div class="activity-section-value" id="activity-to-time">----</div>
+                </div>
+
+                <div class="activity-section">
+                    <div class="activity-section-icon"><i class="weui_icon_success_circle header-cell-hd"></i></div>
+                    <div class="activity-section-key">当前参与组合:</div>
+                    <div class="activity-section-value" id="group-counts">----</div>
+                </div>
+                <div class="activity-section">
+                    <div class="activity-section-icon"><i class="weui_icon_success_circle header-cell-hd"></i></div>
+                    <div class="activity-section-key">抽取总组合数:</div>
+                    <div class="activity-section-value">100个组合</div>
+                </div>
+
+            </section>
+
+
+
+</header>
+<div id="container">
+
+</div>
+<div id="tips">
+    <div id="loadingToast" class="weui_loading_toast" style="display:none;">
+        <div class="weui_mask_transparent"></div>
+        <div class="weui_toast">
+            <div class="weui_loading">
+                <!-- :) -->
+                <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+            </div>
+            <p class="weui_toast_content">奋力加入中</p>
+        </div>
+    </div>
+
+    <div id="toast" style="display: none;">
+        <div class="weui_mask_transparent"></div>
+        <div class="weui_toast">
+            <i class="weui_icon_toast"></i>
+            <p class="weui_toast_content">已完成</p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURIComponent(r[2]); return null;
+    }
+    var data = sessionStorage.getItem('access_token');
+    if(!data){
+        location.href = '/auth?code='+getQueryString('code')+'&stat='+encodeURIComponent(JSON.stringify({r:window.location.href}));
+    }
+</script>
+<script src="/js/less.min.js"></script>
+<script src="/js/zepto.min.js"></script>
+<script>
+    (function($){
+
+
+
+        var expireTime = function(expires){
+            if(expires > 0){
+                var second = expires;
+            }else{
+                var second = "0 分";
+                return second;
+            }
+            var day = hour = min = "";
+            if(second>86400){
+                day = Math.floor(second/86400)+"天 ";
+                second = second%86400;
+            }
+            if(second>3600){
+                hour = Math.floor(second/3600)+"时 ";
+                second = second%3600;
+            }
+            if(second>60){
+                min = Math.floor(second/60)+"分 ";
+                second = second%60;
+            }
+            second = second+"秒";
+            return day+hour+min+second;
+        };
+
+
+        var userJSON = sessionStorage.getItem('user');
+
+        try{
+            var user = JSON.parse(userJSON);
+        }catch(e){
+            var user={};
+        }
+
+        var group_counts = sessionStorage.getItem('group_counts');
+
+        $("#my-group-counts").text(group_counts);
+        $("#my-avatar img").attr("src",user.avatar);
+        $("#my-nickname").text(user.nickname);
+
+        var profileUserId = getQueryString('u')?getQueryString('u'):user.user_id;
+
+
+        $.getJSON("/api/stat/1",function(data){
+            $("#group-counts").text(data.groups+"个组合");
+            var expire = data.lucky_time-parseInt(new Date().getTime()/1000);
+            var timeEle = document.getElementById("activity-to-time");
+            var timer = window.setInterval(function(){
+                timeEle.innerHTML = expireTime(expire--);
+                if(expire<0){
+                    clearInterval(timer);
+                }
+            },1000);
+            
+        });
+
+        $.getJSON("/api/profile/"+profileUserId,function(data){
+
+            var listHtml='';
+            var flag = false;
+            for(var i=data.group.length-1;i>=0;i--){
+
+                if(data.group[i].user_id == user.user_id){
+                    flag=true;
+                }
+
+                listHtml+='<article class="group-item"><div class="group-avatar">'+
+                        '<img class="avatar-self" src="'+data.avatar+'">'+
+                        '<img class="avatar-friend" src="'+data.group[i].avatar+'"> </div>'+
+                        '<div class="group-info"><div class="group-nickname">'+data.group[i].nickname+'</div> <div class="group-status">'+data.group[i].status+'</div></div>'+
+                        '<div class="group-lucky-id"><span class="group-lucky-key">抽奖码:</span>'+data.group[i].lucky_id+'</div></article>';
+            }
+
+            var profileHeaderHtml = '<article class="group-item-header" id="group-item-header"><div class="group-avatar">'+
+                    '<img src="'+data.avatar+'"> </div>'+
+                    '<div class="group-header-info"><div class="group-nickname">'+data.nickname+'</div> <div class="group-status">共'+data.group.length+'个组合</div> </div>'+
+                    ((profileUserId==user.user_id)?'':(flag?'<div class="group-btn"><a href="javascript:;" class="weui_btn weui_btn_plain_default join-btn">已成为队友</a></div>':'<div class="group-btn"><a href="javascript:;" class="weui_btn weui_btn_plain_primary join-btn" id="following-btn">加入Ta的组合</a></div>'))+
+                    '</article>';
+
+            $("#container").append(profileHeaderHtml);
+
+            $("#container").on('click',function(e){
+                if(e.target.id === "following-btn"){
+
+                    $(e.target).text('加入中...');
+                    $("#loadingToast").css("display","");
+                    $.ajax(
+                            {
+                                type:"put",
+                                dataType: 'json',
+                                contentType:"Application/json",
+                                data:JSON.stringify({user_id:user.user_id,access_token:user.access_token}),
+                                url:"/api/following/"+profileUserId,
+                                success:function(data){
+                                        $("#loadingToast").css("display","none");
+                                        $(e.target).attr('class','weui_btn weui_btn_plain_default join-btn');
+                                    $(e.target).attr('id','');
+                                    $(e.target).text('已成为队友');
+
+                                    $("#toast").css("display","");
+                                    setTimeout(function(){
+                                        $("#toast").css("display","none");
+
+                                    },1000);
+
+                                    sessionStorage.setItem("group_counts",parseInt(group_counts)+1);
+
+                                    $("#my-group-counts").text(parseInt(group_counts)+1);
+
+                                    var newItem = '<article class="group-item"><div class="group-avatar">'+
+                                            '<img class="avatar-self" src="'+data.avatar+'">'+
+                                            '<img class="avatar-friend" src="'+data.group[data.group.length-1].avatar+'"> </div>'+
+                                            '<div class="group-info"><div class="group-nickname">'+data.group[data.group.length-1].nickname+'</div> <div class="group-status">'+data.group[data.group.length-1].status+'</div></div>'+
+                                            '<div class="group-lucky-id"><span class="group-lucky-key">抽奖码:</span>'+data.group[data.group.length-1].lucky_id+'</div></article>'
+
+                                    $("#group-item-header").after(newItem);
+
+                                    $("#group-counts").text(parseInt($("#group-counts").text())+1+"个组合");
+                                    $.ajax({
+                                        url:"/api/stat/1/inc",
+                                        type:"put",
+                                        dataType:"json",
+                                        contentType:"Application/json",
+                                        data:JSON.stringify({fields:"groups"})
+                                    });
+
+                                },
+                                error:function(xhr,errorType,error){
+//                                    console.log(xhr);
+                                    alert(JSON.parse(xhr.response).message);
+                                    $(e.target).text('与Ta成为组合');
+                                    $("#loadingToast").css("display","none");
+
+                                }
+                            }
+                    )
+                }
+            });
+            $("#container").append(listHtml);
+        });
+
+        $.ajax({
+            url:"/api/stat/1/inc",
+            type:"put",
+            dataType:"json",
+            contentType:"Application/json",
+            data:JSON.stringify({fields:"views"})
+        });
+    })(Zepto);
+
+
+
+
+
+</script>
+</body>
+</html>
