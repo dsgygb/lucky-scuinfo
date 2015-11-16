@@ -12,7 +12,7 @@
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return decodeURIComponent(r[2]); return null;
         }
-        var data = sessionStorage.getItem('access_token');
+        var data = localStorage.getItem('access_token');
 
         console.log(data);
         if(!data){
@@ -23,7 +23,7 @@
 
         }else{
             if(!getQueryString('u')){
-                location.href = '/?u='+sessionStorage.getItem('user_id');
+                location.href = '/?u='+localStorage.getItem('user_id');
 
             }
             
@@ -151,7 +151,7 @@
         };
 
 
-        var userJSON = sessionStorage.getItem('user');
+        var userJSON = localStorage.getItem('user');
 
         try{
             var user = JSON.parse(userJSON);
@@ -159,7 +159,7 @@
             var user={};
         }
 
-        var group_counts = sessionStorage.getItem('group_counts');
+        var group_counts = localStorage.getItem('group_counts');
 
         $("#my-profile-url").attr('href',"/?u="+user.user_id);
 
@@ -233,7 +233,7 @@
 
                                     },1000);
 
-                                    sessionStorage.setItem("group_counts",parseInt(group_counts)+1);
+                                    localStorage.setItem("group_counts",parseInt(group_counts)+1);
 
                                     $("#my-group-counts").text(parseInt(group_counts)+1);
 

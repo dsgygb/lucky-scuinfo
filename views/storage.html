@@ -19,10 +19,10 @@
 
 
 //        console.log(user);
-        sessionStorage.setItem('user_id',user.user_id);
-        sessionStorage.setItem('access_token',user.access_token);
-        sessionStorage.setItem('user',JSON.stringify(user));
-        sessionStorage.setItem('group_counts',user.group_counts);
+        localStorage.setItem('user_id',user.user_id);
+        localStorage.setItem('access_token',user.access_token);
+        localStorage.setItem('user',JSON.stringify(user));
+        localStorage.setItem('group_counts',user.group_counts);
 
 
         if(user.r == '/'){
