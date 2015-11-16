@@ -183,6 +183,8 @@
         $.getJSON("/api/profile/"+profileUserId,function(data){
             $("#my-group-counts").text(data.group.length);
 
+            alert(user.user_id);
+
             var listHtml='';
             var flag = false;
             for(var i=data.group.length-1;i>=0;i--){
