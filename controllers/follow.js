@@ -119,7 +119,8 @@ follow.following = function  (req,res){
                                         res.status(200).json({ user_id: result.user_id,
                                             lucky_id: result.lucky_id,
                                             create_at: result.create_at,
-                                            status: result.status
+                                            status: result.status,
+                                            avatar:rrr.avatar
                                         });
                                     }
 
