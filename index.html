@@ -13,19 +13,27 @@
             if (r != null) return decodeURIComponent(r[2]); return null;
         }
         var data = localStorage.getItem('access_token');
-
-        console.log(data);
-        if(!data){
-            console.log('https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/luckyWeb")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(window.location.href)+'#wechat_redirect');
-//            location.href = '/auth?code='+(getQueryString('code')?getQueryString('code'):"debug")+"&stat="+encodeURIComponent(JSON.stringify({r:window.location.href}));
+        var up_at = localStorage.getItem('update_at');
+        if(!data || !up_at){
+//            console.log('https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/luckyWeb")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(window.location.href)+'#wechat_redirect');
+            location.href = '/auth?code='+(getQueryString('code')?getQueryString('code'):"debug")+"&stat="+encodeURIComponent(JSON.stringify({r:window.location.href}));
 //            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
 //location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/luckyWeb")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
 
         }else{
-            if(!getQueryString('u')){
-                location.href = '/?u='+localStorage.getItem('user_id');
 
+
+            if(up_at<(parseInt(new Date().getTime()/1000)-300)){
+                location.href = '/auth?code='+(getQueryString('code')?getQueryString('code'):"debug")+"&stat="+encodeURIComponent(JSON.stringify({r:window.location.href}));
+
+            }else{
+
+                if(!getQueryString('u')){
+                    location.href = '/?u='+localStorage.getItem('user_id');
+
+                }
             }
+
             
         }
     </script>

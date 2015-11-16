@@ -18,11 +18,12 @@
         var user = JSON.parse(decodeURIComponent(atob(base64Data)));
 
 
-//        console.log(user);
+        console.log(user);
         localStorage.setItem('user_id',user.user_id);
         localStorage.setItem('access_token',user.access_token);
         localStorage.setItem('user',JSON.stringify(user));
         localStorage.setItem('group_counts',user.group_counts);
+        localStorage.setItem('update_at',parseInt(new Date().getTime()/1000));
 
 
         if(user.r == '/'){
