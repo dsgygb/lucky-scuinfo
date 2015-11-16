@@ -159,14 +159,10 @@ $("#container").css('top',headerHeight-1);
             var user = JSON.parse(userJSON);
         }catch(e){
             var user={
-                user_id:"564972e5b9e01bdd0e5c1a6e",
-                avatar:"x"
+
             };
         }
-        var user={
-            user_id:"564972e5b9e01bdd0e5c1a6e",
-            avatar:"x"
-        };
+
         var group_counts = localStorage.getItem('group_counts');
 
         $("#my-profile-url").attr('href',"/?u="+user.user_id);
