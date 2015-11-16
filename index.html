@@ -23,7 +23,7 @@
 
     <div class="weui_cells weui_cells_access" id="my-profile-href">
 
-        <a class="weui_cell header-my" href="/">
+        <a class="weui_cell header-my" id="my-profile-url" href="/">
             <div class="weui_cell_hd header-avatar" id="my-avatar">
                 <img src="http://tp2.sinaimg.cn/3656973697/180/40036683459/0" alt="icon" style="width:20px;margin-right:5px;display:block">
             </div>
@@ -145,6 +145,7 @@
 
         var group_counts = sessionStorage.getItem('group_counts');
 
+        $("#my-profile-url").attr('href',"/?u="+user.user_id);
         $("#my-group-counts").text(group_counts);
         $("#my-avatar img").attr("src",user.avatar);
         $("#my-nickname").text(user.nickname);
