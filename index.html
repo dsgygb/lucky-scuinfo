@@ -248,7 +248,7 @@
                                     var newItem = '<article class="group-item"><div class="group-avatar">'+
                                             '<img class="avatar-self" src="'+data.avatar+'">'+
                                             '<img class="avatar-friend" src="'+user.avatar+'"> </div>'+
-                                            '<div class="group-info"><div class="group-nickname">'+data.group[data.group.length-1].nickname+'</div> <div class="group-status">'+data.group[data.group.length-1].status+'</div></div>'+
+                                            '<div class="group-info"><div class="group-nickname">'+user.nickname+'</div> <div class="group-status">'+'未开奖'+'</div></div>'+
                                             '<div class="group-lucky-id"><span class="group-lucky-key">抽奖码:</span>'+data.group[data.group.length-1].lucky_id+'</div></article>'
 
                                     $("#group-item-header").after(newItem);

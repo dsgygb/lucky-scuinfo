@@ -1,5 +1,9 @@
 # Lucky Group 抽奖
 
+//todo 判断开奖时间
+
+//todo 抽奖程序
+
 
 ## api接口
 
