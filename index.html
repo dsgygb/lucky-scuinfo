@@ -103,7 +103,7 @@
     }
     var data = sessionStorage.getItem('access_token');
     if(!data){
-        location.href = '/auth?code='+getQueryString('code')+'&stat='+encodeURIComponent(JSON.stringify({r:window.location.href}));
+        location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(JSON.stringify({r:window.location.href}))+'#wechat_redirect';
     }
 </script>
 <script src="/js/less.min.js"></script>
