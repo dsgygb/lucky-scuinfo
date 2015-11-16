@@ -277,9 +277,17 @@
             $("#container").append(listHtml);
 
 
-            var shareDiv = '<div id="share-btn"> <a class="weui_btn weui_btn_plain_primary" id="share-a-href">点击邀请好友组队抽奖加大概率</a></div>';
 
-            $("#container").append(shareDiv);
+           if(profileUserId==user.user_id){
+               var myDiv = '<div> <a href="/?u='+user.user_id+'" class="weui_btn weui_btn_plain_primary" >点击进入我的主页</a></div>';
+               $("#container").append(myDiv);
+
+           }else{
+               var shareDiv = '<div id="share-btn"> <a class="weui_btn weui_btn_plain_primary" id="share-a-href">点击邀请好友组队抽奖加大概率</a></div>';
+               $("#container").append(shareDiv);
+           }
+
+
 
 
             $("#container").on('click',function(e){
