@@ -5,7 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    <link rel="stylesheet" href="/css/weui.min.css">
     <link rel="stylesheet/less" href="/css/profile.less">
-    <title>test</title>
+    <title>scuinfo抽奖平台</title>
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURIComponent(r[2]); return null;
+        }
+        var data = sessionStorage.getItem('access_token');
+        if(!data){
+            location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(JSON.stringify({r:window.location.href}))+'#wechat_redirect';
+        }
+    </script>
 </head>
 <body>
 <header id="header">
@@ -92,20 +103,6 @@
         </div>
     </div>
 </div>
-
-
-<script>
-
-    function getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return decodeURIComponent(r[2]); return null;
-    }
-    var data = sessionStorage.getItem('access_token');
-    if(!data){
-        location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(JSON.stringify({r:window.location.href}))+'#wechat_redirect';
-    }
-</script>
 <script src="/js/less.min.js"></script>
 <script src="/js/zepto.min.js"></script>
 <script>

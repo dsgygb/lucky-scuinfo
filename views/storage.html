@@ -24,6 +24,10 @@
         sessionStorage.setItem('user',JSON.stringify(user));
         sessionStorage.setItem('group_counts',user.group_counts);
 
+
+        if(user.r == '/'){
+            user.r = '/'+user.user_id;
+        }
         location.href = user.r;
 
     }catch(e){
