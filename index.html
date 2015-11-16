@@ -278,6 +278,8 @@ $("#container").css('top',headerHeight-1);
                                     alert(JSON.parse(xhr.response).message);
                                     $(e.target).text('与Ta成为组合');
                                     $("#loadingToast").css("display","none");
+                                    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
+
 
                                 }
                             }
