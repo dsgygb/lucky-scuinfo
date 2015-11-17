@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    <link rel="stylesheet" href="/css/weui.min.css">
+    <link rel="stylesheet" href="/css/profile.min.css">
+    <title>降龙爪爪中奖名单</title>
+    <script>
+    </script>
+</head>
+<body>
+<header id="header">
+
+    <div class="weui_cells weui_cells_access" id="my-profile-href">
+
+        <a class="weui_cell header-my" id="my-profile-url" href="/">
+            <div class="weui_cell_hd header-avatar" id="my-avatar">
+                <img src="http://tp2.sinaimg.cn/3656973697/180/40036683459/0" alt="icon" style="width:20px;margin-right:5px;display:block">
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <p id="my-nickname">中奖名单</p>
+            </div>
+            <div class="weui_cell_ft">
+                进入我的主页
+            </div>
+        </a>
+    </div>
+            <section>
+
+                <div class="activity-intro" id="activity-article">
+                    <p><strong>scuinfo抽200个人（100个组合),请你吃川大小北门外的「降龙爪爪」</strong></p>
+                    <p><strong>已抽奖完毕,下翻可以看到自己的队伍中奖状态.</strong></p>
+                    <p>中奖的组合在下方列表,请凭自己主页的组合状态以及抽奖码到降龙爪爪出兑奖</p>
+                    <p>领取时间:11月18日-11月25日</p>
+                    <p>地点和失物请戳下面的链接</p>
+                    <a href="http://mp.weixin.qq.com/s?__biz=MjM5OTM3OTM3Mg==&mid=404891049&idx=1&sn=1c252c3fabfa412e21361f46076a378e#rd">点击这里查看详情以及都有哪些吃的?</a>
+                </div>
+
+                <div class="activity-section">
+                <div class="activity-section-icon"><i class="weui_icon_waiting_circle header-cell-hd"></i></div>
+                <div class="activity-section-key">距离开奖还有:</div>
+                <div class="activity-section-value" id="activity-to-time">----</div>
+                </div>
+
+                <div class="activity-section">
+                    <div class="activity-section-icon"><i class="weui_icon_success_circle header-cell-hd"></i></div>
+                    <div class="activity-section-key">共参与组合数:</div>
+                    <div class="activity-section-value" id="group-counts">----</div>
+                </div>
+                <div class="activity-section">
+                    <div class="activity-section-icon"><i class="weui_icon_success_circle header-cell-hd"></i></div>
+                    <div class="activity-section-key">抽取总组合数:</div>
+                    <div class="activity-section-value">100个组合</div>
+                </div>
+
+            </section>
+
+
+
+</header>
+<div id="container">
+
+</div>
+
+<div id="tips">
+    <div id="wechatShareTips">
+        <img src="/pic/wechat_share.png">
+    </div>
+</div>
+<script src="/js/zepto.min.js"></script>
+<script>
+    (function($){
+
+        var luckyDoStatus = false;//是否已经到了抽奖的点
+
+
+var headerHeight = $("#header").height();
+$("#container").css('top',headerHeight-1);
+
+
+        var expireTime = function(expires){
+            if(expires > 0){
+                var second = expires;
+            }else{
+                var second = "0 分";
+                return second;
+            }
+            var day = hour = min = "";
+            if(second>86400){
+                day = Math.floor(second/86400)+"天 ";
+                second = second%86400;
+            }
+            if(second>3600){
+                hour = Math.floor(second/3600)+"时 ";
+                second = second%3600;
+            }
+            if(second>60){
+                min = Math.floor(second/60)+"分 ";
+                second = second%60;
+            }
+            second = second+"秒";
+            return day+hour+min+second;
+        };
+
+
+
+
+
+
+
+
+        $.getJSON("/api/stat/1",function(data){
+            $("#group-counts").text(data.groups+"个组合");
+            var expire = data.lucky_time-parseInt(new Date().getTime()/1000);
+            var timeEle = document.getElementById("activity-to-time");
+            var timer = window.setInterval(function(){
+                timeEle.innerHTML = expireTime(expire--);
+                if(expire<0){
+                    luckyDoStatus=true;
+                    clearInterval(timer);
+                }
+            },1000);
+            
+        });
+
+
+
+
+
+        $.getJSON("/api/prize/"+"1",function(data){
+            var listHtml='';
+            var flag = false;
+            for(var i=data.length-1;i>=0;i--){
+
+                listHtml+='<article class="group-item"><div class="group-avatar">'+
+                        '<img class="avatar-self" src="'+data[i].host.avatar+'">'+
+                        '<img class="avatar-friend" src="'+data[i].friend.avatar+'"> </div>'+
+                        '<div class="group-info"><div class="group-nickname">'+data[i].host.nickname+'</div> <div class="group-status">'+data[i].friend.nickname+'</div></div>'+
+                        '<div class="group-lucky-id"><span class="group-lucky-key">获奖码:</span>'+data[i].lucky_id+'</div></article>';
+            }
+
+
+            $("#container").append(listHtml);
+
+            $("#activity-article").on('click',function(e){
+                if(e.target.id == "share-a-href"){
+                    $("#wechatShareTips").css('display',"block");
+
+                }
+            });
+
+            $("#wechatShareTips").on('click',function(){
+                $("#wechatShareTips").css('display',"none");
+            })
+
+        });
+
+
+
+        $.ajax({
+            url:"/api/stat/1/inc",
+            type:"put",
+            dataType:"json",
+            contentType:"Application/json",
+            data:JSON.stringify({fields:"views"})
+        });
+    })(Zepto);
+
+</script>
+</body>
+</html>

@@ -27,6 +27,8 @@ const index = require('./controllers/index.js');
 const follow = require('./controllers/follow.js');
 const profile = require('./controllers/profile.js')
 const stat = require('./controllers/stat.js');
+const prize = require('./controllers/prize.js');
+
 const AuthLib = require('./lib/auth.js');
 let AuthModel = mongoose.model('Auth');
 var consumer = require('./consumer.js');
@@ -37,6 +39,7 @@ app.get('/storage',index.storage);
 app.get('/u/:user_id',profile.profile);
 app.put('/api/following/:user_id',AuthLib.checkAuth,follow.following);
 app.get('/api/profile/:user_id',profile.api);
+app.get('/api/prize/:activity_id',prize.api);
 app.put('/api/stat/:activity_id/inc',stat.inc);
 app.get('/api/stat/:activity_id',stat.stat);
 
