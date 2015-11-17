@@ -121,6 +121,8 @@
 <script src="/js/zepto.min.js"></script>
 <script>
     (function($){
+
+        var luckyDoStatus = false;//是否已经到了抽奖的点
         var userJSON = localStorage.getItem('user');
 
         try{
@@ -143,6 +145,8 @@
 
 var headerHeight = $("#header").height();
 $("#container").css('top',headerHeight-1);
+
+
         var expireTime = function(expires){
             if(expires > 0){
                 var second = expires;
@@ -188,6 +192,7 @@ $("#container").css('top',headerHeight-1);
             var timer = window.setInterval(function(){
                 timeEle.innerHTML = expireTime(expire--);
                 if(expire<0){
+                    luckyDoStatus=true;
                     clearInterval(timer);
                 }
             },1000);
@@ -256,7 +261,7 @@ $("#container").css('top',headerHeight-1);
                                     var newItem = '<article class="group-item"><div class="group-avatar">'+
                                             '<img class="avatar-self" src="'+data.avatar+'">'+
                                             '<img class="avatar-friend" src="'+user.avatar+'"> </div>'+
-                                            '<div class="group-info"><div class="group-nickname">'+user.nickname+'</div> <div class="group-status">'+data.status+'</div></div>'+
+                                            '<div class="group-info"><div class="group-nickname">'+user.nickname+'</div> <div class="group-status">'+((data.status=='未开奖')?(luckyDoStatus?'抽奖中':data.status):data.status)+'</div></div>'+
                                             '<div class="group-lucky-id"><span class="group-lucky-key">抽奖码:</span>'+data.lucky_id+'</div></article>'
 
                                     $("#group-item-header").after(newItem);

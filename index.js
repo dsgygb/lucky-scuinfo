@@ -28,8 +28,6 @@ const follow = require('./controllers/follow.js');
 const profile = require('./controllers/profile.js')
 const stat = require('./controllers/stat.js');
 const AuthLib = require('./lib/auth.js');
-const makeLuckyLib = require('./lib/makeLucky.js');
-
 let AuthModel = mongoose.model('Auth');
 var consumer = require('./consumer.js');
 
