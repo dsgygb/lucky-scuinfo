@@ -65,8 +65,8 @@ Profile.findOne(
 
             }else{
                 let _profile = new Profile({
-                    activityId:'1',
-                    createAt:common.time(),
+                    activity_id:'1',
+                    create_at:common.time(),
                     gender:result.gender,
                     avatar:result.avatar,
                     nickname:result.nickname,

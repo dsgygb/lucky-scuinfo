@@ -28,7 +28,7 @@ follow.following = function  (req,res){
 
                 if(r5.lucky_time<common.time()){
 
-                    res.status(411).json({message:"该活动已截至"});
+                    res.status(411).json({message:"该活动已截止"});
 
                 }else {
 
