@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
-var NoticeSchema = new Schema({
+var LogNoticeSchema = new Schema({
     activity_id:{type:Number},
     open_id:String,
     create_at:Number,
@@ -12,9 +12,9 @@ var NoticeSchema = new Schema({
     status:Boolean,
     nickname:String,
     counts:{type:Number,default:0},
-    log:{type:String,default:'not'},
-    reason:{type:String,default:""}
+    log:String,
+    sendStatus:Boolean
 });
 
 
-mongoose.model('Notice', NoticeSchema);
+mongoose.model('LogNotice', LogNoticeSchema);
