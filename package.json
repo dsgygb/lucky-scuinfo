@@ -17,6 +17,7 @@
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "mongoose": "^4.2.5",
+    "request": "^2.65.0",
     "wechat-oauth": "^1.1.0",
     "weui": "^0.2.0"
   }
