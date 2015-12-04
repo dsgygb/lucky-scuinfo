@@ -18,7 +18,7 @@
         var user = JSON.parse(decodeURIComponent(atob(base64Data)));
 
 
-//        console.log(user);
+        console.log(user);
         localStorage.setItem('user_id',user.user_id);
         localStorage.setItem('access_token',user.access_token);
         localStorage.setItem('user',JSON.stringify(user));
@@ -29,7 +29,7 @@
         if(user.r == '/'){
             user.r = '/?u='+user.user_id;
         }
-        location.href = user.r;
+//        location.href = user.r;
 
     }catch(e){
         console.log(e);
