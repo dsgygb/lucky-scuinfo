@@ -44,4 +44,4 @@ app.put('/api/stat/:activity_id/inc',stat.inc);
 app.get('/api/stat/:activity_id',stat.stat);
 
 
-app.listen(8005);
+app.listen(config.port?config.port:8005);
