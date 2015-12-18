@@ -33,10 +33,10 @@ const AuthLib = require('./lib/auth.js');
 let AuthModel = mongoose.model('Auth');
 var consumer = require('./consumer.js');
 
-app.get('/',index.index);
+//app.get('/',index.index);
 app.get('/auth',index.auth);
-app.get('/storage',index.storage);
-app.get('/u/:user_id',profile.profile);
+//app.get('/storage',index.storage);
+//app.get('/u/:user_id',profile.profile);
 app.put('/api/following/:user_id',AuthLib.checkAuth,follow.following);
 app.get('/api/profile/:user_id',profile.api);
 app.get('/api/prize/:activity_id',prize.api);

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>攒人品中...</title>
+</head>
+<body>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURIComponent(r[2]); return null;
+    }
+   var base64Data = getQueryString("i");
+    try{
+        var user = JSON.parse(decodeURIComponent(atob(base64Data)));
+
+
+        console.log(user);
+        localStorage.setItem('user_id',user.user_id);
+        localStorage.setItem('access_token',user.access_token);
+        localStorage.setItem('user',JSON.stringify(user));
+        localStorage.setItem('group_counts',user.group_counts);
+        localStorage.setItem('update_at',parseInt(new Date().getTime()/1000));
+
+
+        if(user.r == '/'){
+            user.r = '/?u='+user.user_id;
+        }
+//        location.href = user.r;
+
+    }catch(e){
+        console.log(e);
+        alert('用户验证失败')
+    }
+
+    
+
+</script>
+</body>
+</html>

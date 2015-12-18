@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    <link rel="stylesheet" href="/css/weui.min.css">
+    <link rel="stylesheet" href="/css/profile.min.css">
+    <title>scuinfo抽200人组队免费吃小北门爪爪...已抽奖完毕</title>
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURIComponent(r[2]); return null;
+        }
+        var data = localStorage.getItem('access_token');
+        var up_at = localStorage.getItem('update_at');
+        if(!data || !up_at){
+//            console.log('https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/luckyWeb")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(window.location.href)+'#wechat_redirect');
+//            location.href = '/auth?code='+(getQueryString('code')?getQueryString('code'):"debug")+"&stat="+encodeURIComponent(JSON.stringify({r:window.location.href}));
+//            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
+location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/luckyWeb")+'&response_type=code&scope=snsapi_login&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
+
+        }else{
+            if(up_at<(parseInt(new Date().getTime()/1000)-300)){
+                location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
+            }else{
+                if(!getQueryString('u')){
+                    location.href = '/?u='+localStorage.getItem('user_id');
+                }
+            }
+
+            
+        }
+    </script>
+</head>
+<body>
+<header id="header">
+
+    <div class="weui_cells weui_cells_access" id="my-profile-href">
+
+        <a class="weui_cell header-my" id="my-profile-url" href="/">
+            <div class="weui_cell_hd header-avatar" id="my-avatar">
+                <img src="http://tp2.sinaimg.cn/3656973697/180/40036683459/0" alt="icon" style="width:20px;margin-right:5px;display:block">
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <p id="my-nickname">-</p>
+            </div>
+            <div class="weui_cell_ft">
+                进入我的主页(<span id="my-group-counts">-</span>个组合)
+            </div>
+        </a>
+    </div>
+            <section>
+
+                <div class="activity-intro" id="activity-article">
+                    <p><strong>scuinfo抽200个人（100个组合),请你吃川大小北门外的「降龙爪爪」</strong></p>
+                    <p>已抽奖完毕,中奖的组合在下方列表,请凭自己主页的组合抽奖状态以及抽奖码,到降龙爪爪店处兑奖.店主将会额外再奉上耙耙耙鸡爪一份,口味任选.</p>
+                    <p>领取时间:11月27日-12月5日</p>
+                    <p><a href="http://lucky.scuinfo.com/prize.html">查看中奖名单</a></p>
+                    <a href="http://mp.weixin.qq.com/s?__biz=MjM5OTM3OTM3Mg==&mid=404891049&idx=1&sn=1c252c3fabfa412e21361f46076a378e#rd">点击这里查看详情以及都有哪些吃的?</a>
+                </div>
+
+                <div class="activity-section">
+                <div class="activity-section-icon"><i class="weui_icon_waiting_circle header-cell-hd"></i></div>
+                <div class="activity-section-key">距离开奖还有:</div>
+                <div class="activity-section-value" id="activity-to-time">----</div>
+                </div>
+
+                <div class="activity-section">
+                    <div class="activity-section-icon"><i class="weui_icon_success_circle header-cell-hd"></i></div>
+                    <div class="activity-section-key">当前参与组合:</div>
+                    <div class="activity-section-value" id="group-counts">----</div>
+                </div>
+                <!--<div class="activity-section">-->
+                    <!--<div class="activity-section-icon"><i class="weui_icon_success_circle header-cell-hd"></i></div>-->
+                    <!--<div class="activity-section-key">抽取总组合数:</div>-->
+                    <!--<div class="activity-section-value">100个组合</div>-->
+                <!--</div>-->
+
+            </section>
+
+
+
+</header>
+<div id="container">
+
+</div>
+
+<div id="tips">
+    <div id="wechatShareTips">
+        <img src="/pic/wechat_share.png">
+    </div>
+    <div id="loadingToast" class="weui_loading_toast" style="display:none;">
+        <div class="weui_mask_transparent"></div>
+        <div class="weui_toast">
+            <div class="weui_loading">
+                <!-- :) -->
+                <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+            </div>
+            <p class="weui_toast_content">用力组队中</p>
+        </div>
+    </div>
+
+    <div id="toast" style="display: none;">
+        <div class="weui_mask_transparent"></div>
+        <div class="weui_toast">
+            <i class="weui_icon_toast"></i>
+            <p class="weui_toast_content">已完成</p>
+        </div>
+    </div>
+</div>
+<script src="/js/zepto.min.js"></script>
+<script>
+    (function($){
+
+        var luckyDoStatus = false;//是否已经到了抽奖的点
+        var userJSON = localStorage.getItem('user');
+
+        try{
+            var user = JSON.parse(userJSON);
+        }catch(e){
+            var user={
+
+            };
+        }
+        var profileUserId = getQueryString('u')?getQueryString('u'):user.user_id;
+
+        if(profileUserId!=user.user_id){
+            var myDiv = '<div id="myDiv-btn"> <a href="/?u='+user.user_id+'" class="weui_btn weui_btn_plain_primary" >点击进入我的主页</a></div>';
+            $("#activity-article").append(myDiv);
+
+        }else{
+            var shareDiv = '<div id="share-btn"> <a class="weui_btn weui_btn_plain_primary" id="share-a-href">点击邀请好友与我组队</a></div>';
+            $("#activity-article").append(shareDiv);
+        }
+
+var headerHeight = $("#header").height();
+$("#container").css('top',headerHeight-1);
+
+
+        var expireTime = function(expires){
+            if(expires > 0){
+                var second = expires;
+            }else{
+                var second = "0 分";
+                return second;
+            }
+            var day = hour = min = "";
+            if(second>86400){
+                day = Math.floor(second/86400)+"天 ";
+                second = second%86400;
+            }
+            if(second>3600){
+                hour = Math.floor(second/3600)+"时 ";
+                second = second%3600;
+            }
+            if(second>60){
+                min = Math.floor(second/60)+"分 ";
+                second = second%60;
+            }
+            second = second+"秒";
+            return day+hour+min+second;
+        };
+
+
+
+        var group_counts = localStorage.getItem('group_counts');
+
+        $("#my-profile-url").attr('href',"/?u="+user.user_id);
+
+        $("#my-group-counts").text(group_counts);
+
+
+        $("#my-avatar img").attr("src",user.avatar);
+        $("#my-nickname").text(user.nickname);
+
+
+
+        $.getJSON("/api/stat/1",function(data){
+            $("#group-counts").text(data.groups+"个组合");
+            var expire = data.lucky_time-parseInt(new Date().getTime()/1000);
+            var timeEle = document.getElementById("activity-to-time");
+            var timer = window.setInterval(function(){
+                timeEle.innerHTML = expireTime(expire--);
+                if(expire<0){
+                    luckyDoStatus=true;
+                    clearInterval(timer);
+                }
+            },1000);
+            
+        });
+
+
+
+
+
+        $.getJSON("/api/profile/"+profileUserId,function(data){
+            var listHtml='';
+            var flag = false;
+            for(var i=data.group.length-1;i>=0;i--){
+
+                if(data.group[i].user_id == user.user_id){
+                    flag=true;
+                }
+
+                listHtml+='<article class="group-item"><div class="group-avatar">'+
+                        '<img class="avatar-self" src="'+data.avatar+'">'+
+                        '<img class="avatar-friend" src="'+data.group[i].avatar+'"> </div>'+
+                        '<div class="group-info"><div class="group-nickname">'+data.group[i].nickname+'</div> <div class="group-status">'+data.group[i].status+'</div></div>'+
+                        '<div class="group-lucky-id"><span class="group-lucky-key">抽奖码:</span>'+data.group[i].lucky_id+'</div></article>';
+            }
+
+
+
+
+            var profileHeaderHtml = '<article class="group-item-header" id="group-item-header"><div class="group-avatar">'+
+                    '<img src="'+data.avatar+'"> </div>'+
+                    '<div class="group-header-info"><div class="group-nickname">'+data.nickname+'</div> <div class="group-status">共'+'<span id="profile-group-counts">'+data.group.length+'</span>'+'个组合</div> </div>'+
+                    ((profileUserId==user.user_id)?'':(flag?'<div class="group-btn"><a href="javascript:;" class="weui_btn weui_btn_plain_default join-btn">已成为队友</a></div>':'<div class="group-btn"><a href="javascript:;" class="weui_btn weui_btn_plain_primary join-btn" id="following-btn">加入Ta的组合</a></div>'))+
+                    '</article>';
+
+            $("#container").append(profileHeaderHtml);
+
+            $("#container").on('click',function(e){
+                if(e.target.id === "following-btn"){
+
+                    $(e.target).text('加入中...');
+                    $("#loadingToast").css("display","");
+                    $.ajax(
+                            {
+                                type:"put",
+                                dataType: 'json',
+                                contentType:"Application/json",
+                                data:JSON.stringify({user_id:user.user_id,access_token:user.access_token}),
+                                url:"/api/following/"+profileUserId,
+                                success:function(data){
+                                        $("#loadingToast").css("display","none");
+                                        $(e.target).attr('class','weui_btn weui_btn_plain_default join-btn');
+                                    $(e.target).attr('id','');
+                                    $(e.target).text('已成为队友');
+
+                                    $("#toast").css("display","");
+                                    setTimeout(function(){
+                                        $("#toast").css("display","none");
+
+                                    },1000);
+
+                                    localStorage.setItem("group_counts",parseInt(group_counts)+1);
+
+                                    $("#my-group-counts").text(parseInt(group_counts)+1);
+
+                                    var newItem = '<article class="group-item"><div class="group-avatar">'+
+                                            '<img class="avatar-self" src="'+data.avatar+'">'+
+                                            '<img class="avatar-friend" src="'+user.avatar+'"> </div>'+
+                                            '<div class="group-info"><div class="group-nickname">'+user.nickname+'</div> <div class="group-status">'+((data.status=='未开奖')?(luckyDoStatus?'抽奖中':data.status):data.status)+'</div></div>'+
+                                            '<div class="group-lucky-id"><span class="group-lucky-key">抽奖码:</span>'+data.lucky_id+'</div></article>'
+
+                                    $("#group-item-header").after(newItem);
+
+                                    $("#group-counts").text(parseInt($("#group-counts").text())+1+"个组合");
+
+                                    $("#profile-group-counts").text(parseInt($("#profile-group-counts").text())+1);
+
+                                    $.ajax({
+                                        url:"/api/stat/1/inc",
+                                        type:"put",
+                                        dataType:"json",
+                                        contentType:"Application/json",
+                                        data:JSON.stringify({fields:"groups"})
+                                    });
+
+                                },
+                                error:function(xhr,errorType,error){
+//                                    console.log(xhr);
+                                    alert(JSON.parse(xhr.response).message);
+                                    $(e.target).text('与Ta成为组合');
+                                    $("#loadingToast").css("display","none");
+                                    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri='+encodeURIComponent("http://scuinfo.com/auth/lucky")+'&response_type=code&scope=snsapi_userinfo&state='+encodeURIComponent(window.location.href)+'#wechat_redirect';
+
+
+                                }
+                            }
+                    )
+                }
+            });
+            $("#container").append(listHtml);
+
+
+
+
+
+
+
+
+            $("#activity-article").on('click',function(e){
+//                console.log(e.target.id);
+                if(e.target.id == "share-a-href"){
+                    $("#wechatShareTips").css('display',"block");
+
+                }
+            });
+
+            $("#wechatShareTips").on('click',function(){
+                $("#wechatShareTips").css('display',"none");
+            })
+
+        });
+
+        $.ajax({
+            url:"/api/stat/1/inc",
+            type:"put",
+            dataType:"json",
+            contentType:"Application/json",
+            data:JSON.stringify({fields:"views"})
+        });
+    })(Zepto);
+
+</script>
+</body>
+</html>
