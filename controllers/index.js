@@ -91,7 +91,7 @@ Profile.findOne(
                             result.r = stat.r;
                             //console.log(result);
                             let info = encodeURIComponent(new Buffer(encodeURIComponent(JSON.stringify(result))).toString('base64'));
-                            res.redirect('/storage?i='+info);
+                            res.redirect('/storage.html?i='+info);
                         });
 
                     }
