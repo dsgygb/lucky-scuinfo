@@ -9,6 +9,4 @@ var StatSchema = new Schema({
     lucky_time:{type:Number,default:1473350400},
     create_at:Number
 });
-
-
 mongoose.model('Stat', StatSchema);

@@ -7,6 +7,8 @@ let Stat = {
 
 };
 
+
+
 Stat.inc = function  (req,res){
 
     if(typeof req.body.fields !== "string"){
@@ -35,6 +37,7 @@ Stat.stat = function(req,res){
             res.status(500).json({message:"服务器内部错误"});
         }else{
             if(r){
+              console.log(r);
                 res.status(200).json(r);
             }else{
                 res.status(404).json({message:"没有该活动"});
