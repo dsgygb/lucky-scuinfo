@@ -26,10 +26,10 @@
         localStorage.setItem('update_at',parseInt(new Date().getTime()/1000));
 
 
-        if(user.r == '/'){
-            user.r = '/?u='+user.user_id;
-        }
-//        location.href = user.r;
+        // if(user.r == '/'){
+        //     user.r = '/index.html?u='+user.user_id;
+        // }
+       location.href = user.r;
 
     }catch(e){
         console.log(e);
